@@ -1,0 +1,241 @@
+<div class="page-content order-list-page">
+    <div class="tabbable">
+        <ul class="nav nav-tabs">
+            <li ng-class="{active:1==tabStatus}">
+                <a href="javascript:;" ng-click="handleClick(1)">购买</a>
+            </li>
+            <li ng-class="{active:2==tabStatus}">
+                <a href="javascript:;" ng-click="handleClick(2)">试用</a>
+            </li>
+            <li ng-class="{active:3==tabStatus}">
+                <a href="javascript:;" ng-click="handleClick(3)">赠送</a>
+            </li>
+        </ul>
+    </div>
+    <div ng-if="tabStatus==1">
+        <div class="form-group form-inline">
+            <label class="control-label">企业名称</label>
+            <input type="text" class="form-control" ng-model="base.enterpriseName">
+        </div>
+        <div class="form-group form-inline">
+            <label class="control-label">企业账号</label>
+            <input type="text" class="form-control" ng-model="base.enterpriseAccount">
+        </div>
+        <div class="form-group form-inline">
+            <label class="control-label">订单号</label>
+            <input type="number" class="form-control" ng-model="base.orderId">
+        </div>
+        <div class="form-group form-inline">
+            <label class="control-label">合同号</label>
+            <input type="text" class="form-control" ng-model="base.contractNo">
+        </div>
+        <div class="form-group form-inline">
+            <label class="control-label">打款名称(单位/个人)</label>
+            <input type="text" class="form-control" ng-model="base.payerName">
+        </div>
+        <div class="form-group form-inline">
+            <label class="control-label">订单类型</label>
+            <select class="form-control" ng-model="base.upgradeType">
+                <option value="">请选择</option>
+                <option value="0">标准订单</option>
+                <option value="1">版本升级</option>
+                <option value="2">账号升级</option>
+            </select>
+        </div>
+        <div class="form-group form-inline">
+            <label class="control-label">审核状态</label>
+            <select class="form-control" ng-model="base.orderStatus">
+                <option value="">请选择</option>
+                <option value="1">待审核</option>
+                <option value="2">待补充合同</option>
+                <option value="3">已审核</option>
+            </select>
+        </div>
+        <div class="form-group form-inline">
+            <label class="control-label">审核类型</label>
+            <select class="form-control" ng-model="base.approvalType">
+                <option value="">请选择</option>
+                <option value="1">订单</option>
+                <option value="2">补充合同</option>
+            </select>
+        </div>
+        <!--<div class="form-group form-inline">-->
+            <!--<label class="control-label">部门/代理商/公司</label>-->
+            <!--<input type="text" class="form-control" readonly ng-model="base.managerCodeName" ng-click="selectManager()">-->
+        <!--</div>-->
+        <div class="form-group form-inline">
+            <label class="control-label">提单日期</label>
+            <span common-datepicker ng-model="base.startTime"></span>
+            <i>—</i>
+            <span common-datepicker attr-options="{isEnd:true}" ng-model="base.endTime"></span>
+        </div>
+        <div class="form-btn">
+            <button type="button" class="btn btn-primary" ng-click='queryBuyOrder()' permission="RodrQ">查询</button>
+            <button type="button" class="btn btn-default" ng-click="clearQuery()" permission="RodrQ">重置</button>
+        </div>
+        <div class="table-wrap">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>订单号</th>
+                    <th>合同号</th>
+                    <th>企业名称</th>
+                    <th>企业账号</th>
+                    <th>客户经理</th>
+                    <th>CSM负责人</th>
+                    <th>订单类型</th>
+                    <th>打款名称(单位/个人)</th>
+                    <th>总部应收款金额(元)</th>
+                    <th>已到款(元)</th>
+                    <th>提单人</th>
+                    <th>提单日期</th>
+                    <th>审核类型</th>
+                    <th>审批状态</th>
+                    <th>合同签约主体</th>
+                    <th>操作</th>
+                </tr>
+                <tr ng-show="orderList.length<=0">
+                    <td colspan="16">没有查到任何数据!</td>
+                </tr>
+                </thead>
+                <tbody ng-show="orderList.length>0">
+                <tr ng-repeat="item in orderList">
+                    <td>{{item.id}}</td>
+                    <td>{{item.contractNo}}</td>
+                    <td>{{item.enterpriseName}}</td>
+                    <td>{{item.enterpriseAccount}}</td>
+                    <td ng-if="!item.customerManager">-</td>
+                    <td ng-if="item.customerManager">
+                        <div>{{item.customerManagerName}}</div>
+                        <div>{{item.customerManagerDept}}</div>
+                    </td>
+                    <td ng-if="!item.csmManager">-</td>
+                    <td ng-if="item.csmManager">
+                        <div>{{item.csmManagerName}}</div>
+                        <div>{{item.csmManagerDept}}</div>
+                    </td>
+                    <td>{{item.upgradeTypeText}}</td>
+                    <td>{{item.payerName}}</td>
+                    <td>{{item.fsReceivableAmount}}</td>
+                    <td>{{item.receivedAmount}}</td>
+                    <td>{{item.creatorName}}</td>
+                    <td>{{item.createTime | date:"yyyy/MM/dd HH:mm:ss"}}</td>
+                    <td>{{item.approvalTypeText}}</td>
+                    <td>{{item.orderStatusText}}</td>
+                    <td>
+                        <div ng-if="!item.signSubject">-</div>
+                        <div ng-if="item.signSubject==1">纷享</div>
+                        <div ng-if="item.signSubject==2">纷扬</div>
+                    </td>
+                    <td>
+                        <a href="javascript:;" ng-click="handleBuyCheck(item)" permission="odrDetailQ">查看</a>
+                        <a href="javascript:;" ng-click="handleContract(item.id, 'buy')"
+                           ng-if="item.canMakeupContract" permission="RodrSC">补充合同</a>
+                        <a href="javascript:;" ng-click="handleBuyDelete(item.id)" ng-if="item.canDelete"
+                           permission="RodrD">删除</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div ng-if="tabStatus==2 || tabStatus==3">
+        <div class="form-group form-inline">
+            <label class="control-label">企业名称</label>
+            <input type="text" class="form-control" ng-model="base.enterpriseName">
+        </div>
+        <div class="form-group form-inline">
+            <label class="control-label">企业账号</label>
+            <input type="text" class="form-control" ng-model="base.enterpriseAccount">
+        </div>
+        <div class="form-group form-inline">
+            <label class="control-label">订单号</label>
+            <input type="number" class="form-control" ng-model="base.orderId">
+        </div>
+        <div class="form-group form-inline">
+            <label class="control-label">审核状态</label>
+            <select class="form-control" ng-model="base.orderStatus">
+                <option value="">请选择</option>
+                <option value="1">待审核</option>
+                <option ng-if="tabStatus==3" value="2">待补充合同</option>
+                <option value="3">已审核</option>
+            </select>
+        </div>
+        <div class="form-group form-inline">
+            <label class="control-label">提单日期</label>
+            <span common-datepicker ng-model="base.startTime"></span>
+            <i>—</i>
+            <span common-datepicker attr-options="{isEnd:true}" ng-model="base.endTime"></span>
+        </div>
+        <div class="form-btn">
+            <button type="button" class="btn btn-primary" ng-click='queryFreeOrder()' permission="RodrQ">查询</button>
+            <button type="button" class="btn btn-default" ng-click="clearQuery()" permission="RodrQ">重置</button>
+        </div>
+
+        <div class="table-wrap">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>订单号</th>
+                    <th>企业名称</th>
+                    <th>企业账号</th>
+                    <th>客户经理</th>
+                    <th>CSM</th>
+                    <th>提单人</th>
+                    <th>提单日期</th>
+                    <th>审批状态</th>
+                    <th>操作</th>
+                </tr>
+                <tr ng-show="freeList.length<=0">
+                    <td colspan="9">没有查到任何数据!</td>
+                </tr>
+                </thead>
+                <tbody ng-show="freeList.length>0">
+                <tr ng-repeat="item in freeList">
+                    <td>{{item.id}}</td>
+                    <td>{{item.enterpriseName}}</td>
+                    <td>{{item.enterpriseAccount}}</td>
+                    <td ng-if="!item.customerManager">-</td>
+                    <td ng-if="item.customerManager">
+                        <div>{{item.customerManagerName}}</div>
+                        <div>{{item.customerManagerDept}}</div>
+                    </td>
+                    <td ng-if="!item.csmManager">-</td>
+                    <td ng-if="item.csmManager">
+                        <div>{{item.csmManagerName}}</div>
+                        <div>{{item.csmManagerDept}}</div>
+                    </td>
+                    <td>{{item.creatorName}}</td>
+                    <td>{{item.createTime | date:"yyyy/MM/dd HH:mm:ss"}}</td>
+                    <td>{{item.orderStatusText}}</td>
+                    <td>
+                        <a href="javascript:;" ng-click="freeCheck(item)" permission="odrDetailQ">查看</a>
+                        <a href="javascript:;" ng-click="handleContract(item.id, 'free')"
+                           ng-if="item.orderStatus==2" permission="RodrSC">补充合同</a>
+                        <a href="javascript:;" ng-click="freeDelete(item)" permission="RodrD">删除</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="pagination-wrap" ng-show="paginationData.totals">
+        <div class="pagination-total">共 {{paginationData.totals}} 条</div>
+        <ul uib-pagination items-per-page="paginationData.itemsPerPage" total-items="paginationData.totals"
+            ng-model="paginationData.currentPage" max-size="paginationData.maxSize" ng-change="pageChanged()"
+            boundary-links="true" class="pagination-sm" first-text="首页"
+            previous-text="上一页" next-text="下一页" last-text="尾页" force-ellipses="true">
+        </ul>
+        <div class="pagination-num">
+            <select class="paging" ng-model="paging" ng-change="changePageNum(paging)">
+                <option value="">20</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+            </select>
+            <span>行每页</span>
+        </div>
+    </div>
+
+</div>

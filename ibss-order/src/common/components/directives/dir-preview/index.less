@@ -1,0 +1,50 @@
+.dir-preview{
+	.preview-wrap{
+		position:fixed;
+		background:rgba(0, 0, 0, .9);
+		z-index:999999;
+		left:0;
+		right:0;
+		top:0;
+		bottom:0;
+		overflow:hidden;
+		img{
+			position:absolute;
+			left:50%;
+			top:50%;
+			transform:translate(-50%, -50%);
+			max-width:70%;
+			max-height:80%;
+			transition:all .4s linear;
+			transform-origin:center center;
+			border:10px solid #fff;
+			background-color:#fff;
+			}
+		.rotate-wrap{
+			position:absolute;
+			bottom:40px;
+			left:10%;
+			right:10%;
+			text-align:center;
+			}
+		.rotate-at, .rotate-cw{
+			display:inline-block;
+			width:110px;
+			text-align:center;
+			margin:0 50px;
+			cursor:pointer;
+			background:#2896f0;
+			color:#fff;
+			border-radius:4px;
+			line-height:36px;
+			font-size:18px;
+			}
+		.rotate-close{
+			position:absolute;
+			right:20px;
+			bottom:10px;
+			cursor:pointer;
+			color:#a00;
+			}
+		}
+	}

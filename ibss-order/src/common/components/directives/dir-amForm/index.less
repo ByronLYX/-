@@ -1,0 +1,128 @@
+.dir-amForm {
+    padding-left: 10px;
+    position: relative;
+    .form-inline.form-inline-base {
+        position: relative;
+        z-index: 3;
+        .control-label {
+            min-width: 80px;
+        }
+        .form-group {
+            width: 335px;
+        }
+        .control-raido {
+            width: 60px;
+            input {
+                margin-right: 5px;
+            }
+        }
+        .long-label {
+            label {
+                width: 80px;
+                line-height: 18px;
+                padding-right: 10px;
+            }
+        }
+        .form-control-double {
+            width: 240px;
+        }
+        .form-control {
+            width: 240px;
+        }
+        .form-control-mock {
+            display: inline-block;
+            height: 26px;
+            line-height: 24px;
+            width: 240px;
+            vertical-align: middle;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .form-control-upload {
+            max-width: 530px;
+            min-height: 110px;
+        }
+        .input-group-btn {
+            left: -25px;
+            height: 26px;
+        }
+        .show-more-services {
+            position: relative;
+            padding-right: 30px;
+            i.glyphicon.glyphicon-cog {
+                position: absolute;
+                right: 4px;
+                top: 4px;
+                font-size: 16px;
+                cursor: pointer;
+            }
+        }
+    }
+    .form-inline.form-inline-opt {
+        position: relative;
+        z-index: 3;
+        label {
+            min-width: 40px;
+        }
+        .form-group {
+            margin: 0 5px 10px 0;
+        }
+        .form-control {
+            max-width: 105px;
+        }
+        .form-control-double {
+            max-width: 110px;
+        }
+    }
+    .table-agent {
+        width: 100%;
+        li {
+            text-align: left;
+            word-break: break-all;
+        }
+        td:nth-child(1) {
+            width: 70px;
+        }
+        td:nth-child(2) {
+            word-break: break-all;
+            width: 422px;
+        }
+        td:nth-child(3) {
+            width: 100px;
+        }
+        td:nth-child(4) {
+            width: 100px;
+        }
+    }
+    button {
+        line-height: 24px;
+        font-size: 13px;
+        padding: 0 5px;
+    }
+    .dialog-float {
+        opacity: 0;
+        pointer-events: none;
+        position: fixed;
+        top: 140px;
+        bottom: 140px;
+        // height: 0;
+        overflow-y: auto;
+        left: 140px;
+        background: #eee;
+        padding: 15px;
+        transition: left .3s linear;
+        z-index: 2;
+        right: 20px;
+        border-radius: 4px;
+        box-shadow: 0 0 9px rgba(90, 90, 90, .2) inset;
+        &.cur {
+            opacity: 1;
+            pointer-events: auto;
+            left: 108px;
+            z-index: 10;
+        }
+    }
+    .serviceLocaltion-content.dialog-float {
+        bottom: 280px;
+    }
+}

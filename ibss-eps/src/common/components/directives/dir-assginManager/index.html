@@ -1,0 +1,39 @@
+<div class="dir-assginManager">
+    <div class="assgin-item" ng-repeat="(k,v) in assginObj">
+        <h4 class="h4">{{v.name}}</h4>
+        <dl ng-repeat="i in v.str">
+            <dt>{{i.name}} ：</dt>
+            <dd ng-click="queryManager(v,i)">
+                <span class="queryItem cur" ng-repeat="n in i.manager">{{n.deptName}} - {{n.accountName}}</span>
+                <span class="queryItem" ng-if="i.manager.length == 0">分配一个渠道经理</span>
+            </dd>
+        </dl>
+    </div>
+    <div class="assgin-query-mask" ng-show="showQuery"></div>
+    <div class="assgin-query" ng-show="showQuery">
+        <h5 class="h4">分配城市：{{assgin.prov}} - {{assgin.city}}</h5>
+        <hr>
+        <div class="form-inline" role="form">
+            <div class="form-group">
+                <label>查询渠道经理：</label>
+                <input class="form-control" type="text" ng-model="queryKey" name="queryKey" ng-change="queryItem()" ng-model-options="{debounce:400,updateOn: 'keyup'}" maxlength="8">
+            </div>
+            <div class="selected-btn">
+                <button class="btn btn-danger" ng-click="closeSelectPane()">关闭</button>
+                <button class="btn btn-primary" ng-click="submitSelected()">确认</button>
+            </div>
+        </div>
+        <div class="user-selected select-area">
+            <i ng-if="selected.length == 0">【尚未选择渠道经理】</i>
+            <i ng-if="selected.length > 0">已选择 ：</i>
+            <span class="queryItem" ng-repeat="item in selected track by $index" ng-click="selectItem(item)" ng-class="{'cur':item.select}">
+               {{item.deptName}} - {{item.accountName}}</span>
+        </div>
+        <div class="query-result select-area">
+            <h3>查询结果：</h3>
+            <i ng-if="result.length == 0">没有查询到符合条件的条目...</i>
+            <span class="queryItem" ng-repeat="item in result track by $index" ng-click="selectItem(item)" ng-class="{'cur':item.select}">
+               {{item.deptName}} - {{item.accountName}}</span>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,9 @@
+<div class="dir-preview" ng-if="preview.show">
+  <div ng-click="closePreview()" class="preview-wrap">
+    <img class="preview-pic" ng-src="{{preview.src}}">
+    <div class="rotate-wrap">
+      <span class="rotate-at" ng-click="rotatePre(-90);$event.stopPropagation()">向左转</span>
+      <span class="rotate-cw" ng-click="rotatePre(90);$event.stopPropagation();">向右转</span>
+    </div>
+  </div>
+</div>

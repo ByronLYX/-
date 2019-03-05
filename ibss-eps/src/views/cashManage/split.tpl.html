@@ -1,0 +1,54 @@
+<div>
+    <div class="split-cash">
+        <div class="form-group form-inline">
+            <label class="control-label">到款编号:</label>
+            <span>{{split.receivedPayNo}}</span>
+        </div>
+        <div class="form-group form-inline">
+            <label class="control-label">到款日期:</label>
+            <span>{{split.receivedPayTime | date:"yyyy/MM/dd HH:mm:ss"}}</span>
+        </div>
+        <div class="form-group form-inline">
+            <label class="control-label">打款名称(单位/个人):</label>
+            <span>{{split.payerName}}</span>
+        </div>
+        <div class="form-group form-inline">
+            <label class="control-label">金额(元):</label>
+            <span>{{split.receivedPayAmount}}</span>
+        </div>
+        <div class="form-group form-inline">
+            <label class="control-label">手续费(元):</label>
+            <span>{{split.handlingCharge}}</span>
+        </div>
+        <div class="form-group form-inline">
+            <label class="control-label">性质:</label>
+            到款
+        </div>
+        <div class="form-group form-inline">
+            <label class="control-label">收款银行名称:</label>
+            <span>{{split.bankName}}</span>
+        </div>
+        <div class="form-group form-inline">
+            <label class="control-label">所属公司/代理商:</label>
+            <span>{{split.deptCompanyName}}</span>
+        </div>
+    </div>
+    <div class="split-list">
+        <ul ng-repeat="item in splitList">
+            <li>
+                <span class="num">({{item.id}})</span>
+                <div class="form-group form-inline">
+                    <label class="control-label">拆分后到款(元):<sub>*</sub></label>
+                    <input type="number" class="form-control" ng-model="item.receivedPayAmount">
+                </div>
+                <div class="form-group form-inline">
+                    <label class="control-label">手续费(元):<sub>*</sub></label>
+                    <input type="number" class="form-control" ng-model="item.handlingCharge">
+                    <a href="javascript:;" class="add-split" ng-click="addSplit()" ng-show="$index === splitList.length-1">添加</a>
+                    <a href="javascript:;" class="add-split" ng-click="delSplit(item)" ng-show="$index >= 2 && $index === splitList.length-1">删除</a>
+                </div>
+            </li>
+        </ul>
+
+    </div>
+</div>

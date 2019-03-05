@@ -1,0 +1,98 @@
+<div class="page-content cash-manage">
+    <div class="form-group form-inline">
+        <label class="control-label">到款编号</label>
+        <input type="text" class="form-control" ng-model="receivedPayNo">
+    </div>
+    <div class="form-group form-inline">
+        <label class="control-label">打款名称(单位/个人)</label>
+        <input type="text" class="form-control" ng-model="payerName">
+    </div>
+    <div class="form-group form-inline">
+        <label class="control-label">收款银行名称</label>
+        <input type="text" class="form-control" ng-model="bankName">
+    </div>
+    <div class="form-group form-inline">
+        <label class="control-label">所属公司/代理商</label>
+        <input type="text" class="form-control" ng-model="deptCompanyName">
+    </div>
+    <div class="form-group form-inline">
+        <label class="control-label">认领状态</label>
+        <select class="form-control" ng-model="claimed">
+            <option value="">请选择</option>
+            <option value="1">已认领</option>
+            <option value="2">认领中</option>
+        </select>
+    </div>
+    <div class="form-group form-inline">
+        <label class="control-label">到款日期</label>
+        <span common-datepicker ng-model="startTime"></span>
+        <i>—</i>
+        <span common-datepicker ng-model="endTime"></span>
+    </div>
+    <div class="form-btn">
+        <button type="button" class="btn btn-primary" ng-click='receivedQuery()' permission="RodrrpQ">查询</button>
+        <button type="button" class="btn btn-default" ng-click="clearQuery()" permission="RodrrpQ">重置</button>
+    </div>
+
+    <div class="table-wrap">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>编号</th>
+                <th>金额(元)</th>
+                <th>到款日期</th>
+                <th>打款名称(单位/个人)</th>
+                <th>性质</th>
+                <th>收款银行名称</th>
+                <th>所属公司/代理商</th>
+                <th>认领状态</th>
+                <th>操作</th>
+            </tr>
+            <tr ng-show="cashList.length<=0"><td colspan="9">没有查到任何数据!</td></tr>
+            </thead>
+            <tbody ng-show="cashList.length>0">
+            <tr ng-repeat="item in cashList">
+                <td>{{item.receivedPayNo}}</td>
+                <td>{{item.receivedPayAmount}}</td>
+                <td>{{item.receivedPayTime | date:"yyyy/MM/dd HH:mm:ss"}}</td>
+                <td>{{item.payerName}}</td>
+                <td>到款</td>
+                <td>{{item.bankName}}</td>
+                <td>{{item.deptCompanyName}}</td>
+                <td>{{item.claimed ? '已认领' : '认领中'}}</td>
+                <td>
+                    <a href="javascript:;" ng-click="handleCheck(item)" permission="recDetailQ">查看</a>
+                    <a href="javascript:;" ng-click="handleDelete(item)" ng-show="item.claimed==false" permission="RodrrpD">删除</a>
+                    <a href="javascript:;" ng-click="handleBind(item)" ng-show="item.claimed==false" permission="bingdingOdrU">绑定订单</a>
+                    <a href="javascript:;" ng-click="handleSplit(item)" ng-show="item.claimed==false" permission="recSplitU">拆分</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="btn-manage">
+            <button class="btn btn-primary" ng-click="addCash()" permission="RodrrpC">新建</button>
+            <button class="btn btn-primary" ng-click="importExcel()" permission="importC">导入</button>
+            <button class="btn btn-primary" ng-click="export()" permission="RodraE">导出</button>
+        </div>
+
+        <div class="pagination-wrap" ng-show="paginationData.totals">
+            <div class="pagination-total">共 {{paginationData.totals}} 条</div>
+            <ul uib-pagination items-per-page="paginationData.itemsPerPage" total-items="paginationData.totals"
+                ng-model="paginationData.currentPage" max-size="paginationData.maxSize" ng-change="pageChanged()"
+                boundary-links="true" class="pagination-sm" first-text="首页"
+                previous-text="上一页" next-text="下一页" last-text="尾页" force-ellipses="true">
+            </ul>
+            <div class="pagination-num">
+                <select class="paging" ng-model="paging" ng-change="changePageNum(paging)">
+                    <option value="">20</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                </select>
+                <span>行每页</span>
+            </div>
+        </div>
+
+    </div>
+
+
+</div>

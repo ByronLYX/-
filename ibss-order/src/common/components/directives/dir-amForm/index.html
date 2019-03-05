@@ -1,0 +1,196 @@
+<div class="dir-amForm">
+    <div class="form-inline form-inline-base" role="form">
+        <h4 class="h4">基本信息</h4>
+        <hr>
+        <div class="form-group">
+            <label class="control-label">代理商名称<sub>*</sub></label>
+            <input ng-disabled="agent._readonly" type="text" class="form-control" maxlength="50" name="name" ng-model="agent.name">
+        </div>
+        <div class="form-group">
+            <label class="control-label">类&#12288;型<sub>*</sub></label>
+            <select ng-disabled="agent._readonly" class="form-control" name="type" ng-model="agent.type">
+				<option value="">请选择</option>
+				<option value="1">代理商</option>
+				<option value="2">联营公司</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="control-label">代理商区域<sub>*</sub></label>
+            <!--<input class="form-control" ng-click="getServiceLocaltion();" ng-model="agent.serviceLocaltion">-->
+            <input ng-disabled="agent._readonly" class="form-control" ng-show="agent._type == 'create' || agent._type == 'createEdit'" ng-click="getServiceLocaltion();" ng-model="agent.serviceLocaltion">
+            <div ng-class="{'readonly':agent._readonly}" class="form-control show-more-services" ng-show="agent._type == 'check'">
+                <show-more code="{{agent.areaCodes}}"></show-more>
+                <i ng-if="!agent._readonly" class="glyphicon glyphicon-cog" ng-click="getServiceLocaltion();"> </i>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label">合作日期<sub>*</sub></label>
+            <div class="form-control-double" ng-if="!agent._readonly">
+                <div common-datepicker ng-model="agent.cooperateDate"></div>
+            </div>
+            <input ng-if="agent._readonly" ng-disabled="agent._readonly" type="text" class="form-control" name="name" ng-model="agent._humDate">
+        </div>
+        <div class="form-group">
+            <label class="control-label">保证金金额<sub>*</sub></label>
+            <input ng-disabled="agent._readonly" type="number" class="form-control" number name="deposit" ng-model="agent.deposit">
+        </div>
+        <div class="form-group-line">
+            <label class="control-label">公司地址<sub>*</sub></label>
+            <input ng-disabled="agent._readonly" class="form-control" ng-click="getLocaltion();" ng-model="agent.localtion">
+            <i class="input-split-line"></i>
+            <input ng-disabled="agent._readonly" type="text" class="form-control" maxlength="500" name="detailAddress" ng-model="agent.detailAddress" placeholder="详细地址">
+        </div>
+        <div class="form-group-line">
+            <label class="control-label">上级代理商<sub>*</sub></label>
+            <label class="control-radio">
+                <input ng-disabled="agent._readonly"  type="radio" name="optionsRadios" ng-change="hasParent(true)" ng-model="agent.hasParent" value="false">否
+            </label>
+            <label class="control-radio">
+                <input ng-disabled="agent._readonly" type="radio" name="optionsRadios" ng-change="hasParent(false)" ng-model="agent.hasParent" value="true">是
+            </label>
+            <div type="text" ng-class="{'readonly':agent._readonly}" ng-disabled="agent.hasParentNameStatus" class="form-control" ng-click="!agent._readonly &&  !agent.hasParentNameStatus && getAgentParent(agent) ">{{agent.hasParentName}}</div>
+            <!--<div type="text" ng-disabled="agent.hasParentNameStatus" class="form-control" maxlength="30" name="hasParentName" ng-model="agent.hasParentName" ng-click="!agent.hasParentNameStatus && getAgentParent(agent)">{{agent.hasParentName}}</div>-->
+        </div>
+        <hr>
+        <div class="form-group-line long-label">
+            <label class="vat control-label">签约协议<sub>*</sub></label>
+            <div class="form-control-area">
+                <upload file="agent.signinProtocol" readonly="agent._readonly"></upload>
+            </div>
+        </div>
+        <div class="form-group-line long-label">
+            <label class="vat control-label">法人身份证复印件<sub>*</sub></label>
+            <div class="form-control-area">
+                <upload file="agent.corporationIDCopy" readonly="agent._readonly"></upload>
+            </div>
+        </div>
+        <div class="form-group-line long-label">
+            <label class="vat control-label">代理商营业执照</label>
+            <div class="form-control-area">
+                <upload file="agent.businessLicence" readonly="agent._readonly"></upload>
+            </div>
+        </div>
+        <div class="form-group-line long-label">
+            <label class="vat control-label">代理商税务证明</label>
+            <div class="form-control-area">
+                <upload file="agent.taxRegistrationCertificate" readonly="agent._readonly"></upload>
+            </div>
+        </div>
+        <div class="form-group-line long-label">
+            <label class="vat control-label">代理商资质证明文件</label>
+            <div class="form-control-area">
+                <upload file="agent.certificateOfQualification" readonly="agent._readonly"></upload>
+            </div>
+        </div>
+        <h4 class="h4">负责人信息</h4>
+        <hr>
+        <div class="form-group">
+            <label class="control-label">姓名<sub>*</sub></label>
+            <input ng-disabled="agent._readonly" type="text" class="form-control" maxlength="8" name="responsibleName" ng-model="agent.responsibleName">
+        </div>
+        <div class="form-group">
+            <label class="control-label">手机号码<sub>*</sub></label>
+            <input ng-disabled="agent._readonly" type="text" class="form-control" phone name="responsiblePhone" ng-model="agent.responsiblePhone">
+        </div>
+        <div class="form-group">
+            <label class="control-label">Email<sub>*</sub></label>
+            <input ng-disabled="agent._readonly" type="text" class="form-control" maxlength="50" email name="responsibleEmail" ng-model="agent.responsibleEmail">
+        </div>
+        <div class="form-group">
+            <label class="control-label">微信<sub>*</sub></label>
+            <input ng-disabled="agent._readonly" type="text" class="form-control" account maxlength="50" name="responsibleWechat" ng-model="agent.responsibleWechat">
+        </div>
+        <div class="form-group">
+            <label class="control-label">QQ<sub>*</sub></label>
+            <input ng-disabled="agent._readonly" type="text" class="form-control" maxlength="50" name="responsibleQQ" ng-model="agent.responsibleQQ">
+        </div>
+        <div class="form-group-line form-group-textarea">
+            <label class="vat control-label">备注</label>
+            <textarea ng-disabled="agent._readonly" type="text" ng-model="agent.remark" name="remark" maxlength="500"></textarea>
+        </div>
+    </div>
+    <div ng-if="agent._type == 'check' && isOptAuthor" class="amForm-table">
+        <hr>
+        <div class="form-inline form-inline-opt" role="form">
+            <div class="form-group">
+                <label class="control-label">类型</label>
+                <select class="form-control" name="operateType" ng-model="agent.operateType">
+                    <option value="">全部</option>
+                    <option value="1">新建</option>
+                    <option value="2">修改</option>
+                    <option value="3">删除</option>
+                    <option value="4">启用</option>
+                    <option value="5">停用</option>
+                    <option value="6">分配渠道经理</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="control-label">操作人</label>
+                <input type="text" class="form-control" maxlength="8" name="optAccountName" ng-model="agent.optAccountName">
+            </div>
+            <div class="form-group">
+                <label class="control-label">操作时间</label>
+                <div class="form-control-double">
+                    <div common-datepicker ng-model="agent.optStartTime"></div>
+                </div>
+                <i class="input-split-line"></i>
+                <div class="form-control-double">
+                    <div common-datepicker ng-model="agent.optEndTime"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-primary" ng-click="operateInit(true)">查询</button>
+            </div>
+        </div>
+        <div class="detail-content-table">
+            <table class="table table-bordered table-hover table-agent">
+                <thead>
+                    <tr>
+                        <th>类型</th>
+                        <th>内容</th>
+                        <th>操作人</th>
+                        <th>操作时间</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="i in opt.queryDataResult">
+                        <td>{{i.operateType}}</td>
+                        <td>
+                            <ul ng-if="i.operateContents.length >= 1">
+                                <li ng-repeat="co in i.operateContents">
+                                    {{co._content}}
+                                </li>
+                            </ul>
+                            <span ng-if="i.operateContents.length < 1"> - </span>
+                        </td>
+                        <td>{{i.accountName}}</td>
+                        <td>{{i.operateDate}}</td>
+                    </tr>
+                    <tr ng-show="opt.queryDataResult.length == 0">
+                        <td colspan="4">
+                            <a href="javascript:void(0);">没有查询到符合条件的数据！</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="pagination-wrap" ng-show="opt.paginationData.totals">
+            <div class="pagination-total">共 {{opt.paginationData.totals}} 条</div>
+            <ul uib-pagination total-items="opt.paginationData.totals" ng-model="opt.paginationData.currentPage" max-size="opt.paginationData.maxSize" ng-change="pageChanged()" boundary-links="true" class="pagination-sm" first-text="首页" previous-text="上一页" next-text="下一页"
+                items-per-page="opt.paginationData.itemsPerPage" last-text="尾页" force-ellipses="true">
+            </ul>
+        </div>
+    </div>
+
+
+    <div class="localtion-content dialog-float" ng-class="{'cur':show.localtion}">
+        <localtion return-item="addLocaltion" callback="haha(aaa)"></localtion>
+    </div>
+    <div class="serviceLocaltion-content dialog-float" ng-class="{'cur':show.serviceLocaltion}">
+        <service-area return-item="serLocaltion"></service-area>
+    </div>
+    <div class="serviceLocaltion-content dialog-float" ng-class="{'cur':show.agentParent}">
+        <assgin return-item="agentParent" ex="exName" strict-mode="true"></assgin>
+    </div>
+
+</div>

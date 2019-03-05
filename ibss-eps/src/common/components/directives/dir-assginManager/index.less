@@ -1,0 +1,163 @@
+.dir-assginManager {
+    position: relative;
+    min-height:500px;
+    hr{
+        margin:15px 0;
+    }
+    .form-inline{
+        position: relative;
+        z-index: 3;
+        label {
+            width:110px;
+        }
+        .form-group {
+            width: 100%;
+        }
+        .form-control{
+            width: 350px;
+        }
+    }
+    .assgin-item{
+        border-left: 4px solid #eee;
+        padding:0 10px;
+        margin-bottom:10px;
+        dl{
+            margin-bottom:10px;
+        }
+        dt{
+            width:75px;
+            line-height: 18px;
+            float:left;
+        }
+        dd{
+            margin-left:75px;
+            border-radius: 3px;
+            background:#efefef;
+            padding:10px;
+            min-height: 45px;
+            cursor: pointer;
+        }
+    }
+    .assgin-query-mask{
+        position: absolute;
+        left:0;
+        right:0;
+        bottom:0;
+        top:0;
+        background:rgba(0,0,0,.6)
+    }
+    .assgin-query{
+        position: absolute;
+        width: 600px;
+        top:50px;
+        left:50%;
+        min-height:400px;
+        margin-left:-300px;
+        border-radius: 5px;
+        box-shadow: 0 0 13px rgba(0,0,0,.6);
+        background: #fff;
+        padding:5px 15px;
+    }
+    .industry-content {
+        &:before {
+            top: 236px;
+        }
+    }
+    .localtion-content {
+        &:before {
+            top: 195px;
+        }
+    }
+    .dialog-float {
+        opacity: 0;
+        position: absolute;
+        left: 100px;
+        top: 0;
+        background: #eee;
+        padding: 10px;
+        bottom: 0;
+        transition: left .3s linear;
+        z-index: 2;
+        right: 0;
+        border-radius: 4px;
+        box-shadow: 0 0 9px rgba(90, 90, 90, .2) inset;
+        &:before {
+            position: absolute;
+            left: -5px;
+            width: 10px;
+            height: 10px;
+            background: #eee;
+            z-index: 1;
+            content: '';
+            transform: rotate(45deg);
+        }
+        &.cur {
+            opacity: 1;
+            left: 84px;
+            z-index: 10;
+        }
+    }
+    .select-area {
+        font-size: 0;
+        h3 {
+            font-size: 14px;
+            border-bottom: 1px solid #e2e2e2;
+            line-height: 38px;
+            margin: 0 0 10px 0;
+        }
+        i {
+            display: inline-block;
+            font-size: 13px;
+            height: 30px;
+            line-height: 30px;
+            margin-right: 10px;
+        }
+         .queryItem {
+            background:#eee;
+         }
+    }
+    .selected-btn {
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 40px;
+    }
+    button {
+        line-height: 24px;
+        font-size: 13px;
+        padding: 0 5px;
+        margin-bottom: 10px;
+    }
+    .queryItem {
+        position: relative;
+        display: inline-block;
+        font-size: 13px;
+        height: 28px;
+        line-height: 28px;
+        background: #fff;
+        text-indent: 6px;
+        padding-right: 20px;
+        border-radius: 4px;
+        margin: 0 6px 6px 0;
+        cursor: pointer;
+        -ms-user-select: none;
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        &:after {
+            content: '+';
+            position: absolute;
+            width: 20px;
+            height: 28px;
+            line-height: 328x;
+            right: 0;
+            top: 0;
+        }
+        &.cur {
+            color: #fff;
+            background: #23bafe
+        }
+        &.cur:after {
+            content: '-'
+        }
+    }
+}

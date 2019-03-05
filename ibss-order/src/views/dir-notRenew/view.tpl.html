@@ -1,0 +1,22 @@
+<div class="not-renew">
+    <div class="title" ng-show="orderNumber!=0">
+        <span class="tip">提示：该订单已被{{orderNumber}}个订单作为续费来源，修改为不续费将解除该订单与{{orderNumber}}个订单的续费关系，请谨慎操作！</span>
+    </div>
+    <div>
+        <div class="reason-tip">
+            不续费原因：（必填）
+        </div>
+        <ul class="reason-tag">
+            <li ng-repeat="i in tagReason">
+                <label><input type="checkbox" ng-model="i.value"> {{i.text}}</label>
+            </li>
+        </ul>
+        <div>
+            <textarea class="reason-content" name="" cols="30" rows="10" ng-model="reason"></textarea>
+        </div>
+        <div class="reason-btn">
+            <button type="button" class="btn btn-default" ng-click="cancel()">取消</button>
+            <button type="button" class="btn btn-primary" ng-click="save()">确定</button>
+        </div>
+    </div>
+</div>

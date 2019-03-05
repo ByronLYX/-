@@ -1,0 +1,75 @@
+<div class="page-content cash-bind">
+    <div class="form-group form-inline">
+        <label class="control-label">订单号</label>
+        <input type="number" class="form-control" ng-model="orderId">
+    </div>
+    <div class="form-group form-inline">
+        <label class="control-label">合同号</label>
+        <input type="text" class="form-control" ng-model="contractNo">
+    </div>
+    <div class="form-group form-inline">
+        <label class="control-label">企业名称</label>
+        <input type="text" class="form-control" ng-model="enterpriseName">
+    </div>
+    <div class="form-group form-inline">
+        <label class="control-label">企业帐号</label>
+        <input type="text" class="form-control" ng-model="enterpriseAccount">
+    </div>
+    <div class="form-group form-inline">
+        <label class="control-label">付款名称(单位/个人)</label>
+        <input type="text" class="form-control" ng-model="payerName">
+    </div>
+    <div class="form-btn">
+        <button type="button" class="btn btn-primary" ng-click='bindQuery()'>查询</button>
+        <button type="button" class="btn btn-default" ng-click="clearQuery()">重置</button>
+    </div>
+
+    <div class="table-wrap">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th></th>
+                <th>订单号</th>
+                <th>付款名称(单位/个人)</th>
+                <th>总部应收款金额(元)</th>
+                <th>已到款(元)</th>
+                <th>合同号</th>
+                <th>企业名称</th>
+                <th>企业账号</th>
+                <th>提单日期</th>
+                <th>操作</th>
+            </tr>
+            <tr ng-show="bindList.length<=0"><td colspan="10">没有查到任何数据!</td></tr>
+            </thead>
+            <tbody ng-show="bindList.length>0">
+            <tr ng-repeat="item in bindList">
+                <td><input name="order" type="radio" ng-model="radioId" value="{{item.id}}" ng-checked="false"
+                           ng-change="radioChange(item.id)"></td>
+                <td>{{item.id}}</td>
+                <td>{{item.payerName}}</td>
+                <td>{{item.fsReceivableAmount}}</td>
+                <td>{{item.receivedAmount}}</td>
+                <td>{{item.contractNo}}</td>
+                <td>{{item.enterpriseName}}</td>
+                <td>{{item.enterpriseAccount}}</td>
+                <td>{{item.createTime | date:"yyyy/MM/dd HH:mm:ss"}}</td>
+                <td>
+                    <a href="javascript:;" ng-click="handleDetail(item)">订单详情</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div class="pagination-wrap" ng-show="paginationData.totals">
+            <div class="pagination-total">共 {{paginationData.totals}} 条</div>
+            <ul uib-pagination items-per-page="paginationData.itemsPerPage" total-items="paginationData.totals"
+                ng-model="paginationData.currentPage" max-size="paginationData.maxSize" ng-change="pageChanged()"
+                boundary-links="true" class="pagination-sm" first-text="首页"
+                previous-text="上一页" next-text="下一页" last-text="尾页" force-ellipses="true">
+            </ul>
+        </div>
+
+    </div>
+
+
+</div>

@@ -1,0 +1,67 @@
+.dir-checkCompany {
+	padding-left: 10px;
+	position: relative;
+	max-width: 1000px;
+	.form-inline {
+		position: relative;
+		z-index: 3;
+		.h4 {
+			margin-top: 40px;
+		}
+		label {
+			width: 100px;
+		}
+		.control-label {
+			min-width: 80px;
+		}
+		.form-group {
+			width: 360px;
+		}
+		.control-raido {
+			width: 60px;
+			input {
+				margin-right: 5px;
+			}
+		}
+		.long-label {
+			label {
+				width: 80px;
+				line-height: 18px;
+				padding-right: 10px;
+			}
+		}
+		.form-control-double, .form-control-mock, .form-control {
+			width: 240px;
+		}
+		.form-control-upload {
+			max-width: 530px;
+			min-height: 110px;
+		}
+		.form-control-mock.form-text-indent {
+			text-indent: .5rem;
+		}
+	}
+	button {
+		line-height: 24px;
+		font-size: 13px;
+		padding: 0 5px;
+	}
+}
+
+.dir-checkCompany.lock-status {
+	.form-control-mock {
+		position: relative;
+		&:after {
+			position: absolute;
+			content: '';
+			left: 0;
+			right: 0;
+			bottom: 0;
+			top: 0;
+			z-index: 9999;
+			border-radius: 4px;
+			background: rgba(100, 100, 100,.1);
+			cursor: not-allowed;
+		}
+	}
+}

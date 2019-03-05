@@ -1,0 +1,147 @@
+<div class="dir-checkCompany" ng-class="{'lock-status':true}">
+    <fieldset ng-disabled="true">
+        <div class="form-inline" role="form">
+            <div class="form-group">
+                <label class="control-label">签约企业名称<sub>*</sub></label>
+                <input type="text" class="form-control" maxlength="50" ng-model="detail.signEaName" placeholder="合同章名称">
+            </div>
+            <div class="form-group">
+                <label class="control-label">当前企业名称<sub>*</sub></label>
+                <input type="text" class="form-control" maxlength="50" ng-model="detail.enterpriseName">
+            </div>
+            <div class="form-group">
+                <label class="control-label">服务区域<sub>*</sub></label>
+                <input type="text" class="form-control" maxlength="50" ng-model="detail.serviceArea">
+            </div>
+            <div class="form-group">
+                <label class="control-label">企业账号<sub>*</sub></label>
+                <input type="text" required ng-class="{ 'ng-invalid':!detail.checkAccount}" ng-change="checkAccount()" ng-model-options="{ 'updateOn': 'keyup', debounce: 300}" placeholder="字母开始，6到20位长度" class="form-control" maxlength="20
+                   " ng-model="detail.enterpriseAccount">
+            </div>
+            <div class="form-group">
+                <label class="control-label">行　　业<sub>*</sub></label>
+                <div industry ng-model="detail.industry" class="form-control-mock"></div>
+            </div>
+            <div class="form-group">
+                <label class="control-label">使用对象类型<sub>*</sub></label>
+                <select class="form-control" ng-model="detail.groupType">
+				<option value="">请选择</option>
+				<option value="1">销售团队</option>
+				<option value="2">非销售团队</option>
+				<option value="3">全公司</option>
+			</select>
+            </div>
+            <div class="form-group">
+                <label class="control-label">公司规模<sub>*</sub></label>
+                <select class="form-control" ng-model="detail.companyScale">
+				<option value="">请选择</option>
+				<option value="1">未知</option>
+				<option value="2">1—49人</option>
+				<option value="3">50—99人</option>
+				<option value="4">100—499人</option>
+				<option value="5">500—999人</option>
+				<option value="6">1000—4999人</option>
+				<option value="7">5000—9999人</option>
+				<option value="8">10000人以上</option>
+			</select>
+            </div>
+            <div class="form-group">
+                <label class="control-label">销售团队使用<sub>*</sub></label>
+                <select class="form-control" ng-model="detail.isSaleTeam">
+				<option value="">请选择</option>
+				<option value="true">是</option>
+				<option value="false">否</option>
+			</select>
+            </div>
+            <div class="form-group">
+                <label class="control-label">销售团队规模<sub>*</sub></label>
+                <select class="form-control" ng-model="detail.saleTeamScale">
+				<option value="1" title="未知">未知</option>
+				<option value="2" title="1-49人">1-49人</option>
+				<option value="3" title="50-99人">50-99人</option>
+				<option value="4" title="100-499人">100-499人</option>
+				<option value="5" title="500-999人">500-999人</option>
+				<option value="6" title="1000-4999人">1000-4999人</option>
+				<option value="7" title="5000-9999人">5000-9999人</option>
+				<option value="8" title="10000人以上">10000人以上</option>
+			</select>
+            </div>
+            <div class="form-group">
+                <label class="control-label">是否标杆<sub>*</sub></label>
+                <select class="form-control" ng-model="detail.isMarking">
+				<option value="">请选择</option>
+				<option value="true">是</option>
+				<option value="false">否</option>
+			</select>
+            </div>
+            <div class="form-group">
+                <label class="control-label">是否转介绍<sub>*</sub></label>
+                <select class="form-control" ng-model="detail.isReferral">
+				<option value="">请选择</option>
+				<option value="true">是</option>
+				<option value="false">否</option>
+			</select>
+            </div>
+            <div class="form-group">
+                <label class="control-label">来　　源<sub>*</sub></label>
+                <select class="form-control" ng-model="detail.source">
+                    <option value="">请选择</option>
+				    <option value="2">公司资源客户</option>
+                    <option value="3">自开拓</option>
+                    <option value="4">客户转介绍</option>
+                    <option value="5">楼宇客户</option>
+                    <option value="6">市场部</option>
+                    <option value="7">预约上门</option>
+                    <option value="8">线上询价</option>
+			</select>
+            </div>
+            <div class="form-group-line">
+                <label class="control-label">企业地址<sub>*</sub></label>
+                <div class="form-control-double">
+                    <div localtion ng-model="detail.city" class="form-control-mock"></div>
+                </div>
+                <i class="input-split-line"></i>
+                <input type="text" class="form-control" ng-model="detail.address" placeholder="请填写详细地址">
+            </div>
+            <h4 class="h4">企业负责人</h4>
+            <hr>
+            <div class="form-group">
+                <label class="control-label">企业负责人姓名<sub>*</sub></label>
+                <input type="text" class="form-control" maxlength="50" ng-model="detail.keyContactName">
+            </div>
+            <div class="form-group">
+                <label class="control-label">企业负责人手机<sub>*</sub></label>
+                <input type="text" class="form-control" phone ng-model="detail.keyContactPhone">
+            </div>
+            <div class="form-group">
+                <label class="control-label">企业负责人邮箱<sub>*</sub></label>
+                <input type="text" class="form-control" maxlength="50" email ng-model="detail.keyContactEmail">
+            </div>
+            <h4 class="h4">纷享平台管理员</h4>
+            <hr>
+            <div class="form-group">
+                <label class="control-label">平台管理员姓名<sub>*</sub></label>
+                <input type="text" class="form-control" maxlength="50" ng-model="detail.managerName">
+            </div>
+            <div class="form-group">
+                <label class="control-label">平台管理员手机<sub>*</sub></label>
+                <input type="text" class="form-control" phone ng-model="detail.managerPhone">
+            </div>
+            <div class="form-group">
+                <label class="control-label">平台管理员邮箱<sub>*</sub></label>
+                <input type="text" class="form-control" maxlength="50" email ng-model="detail.managerEmail">
+            </div>
+            <!--<h4 class="h4">客户负责人</h4>-->
+            <!--<hr>-->
+            <!--<div class="form-group">-->
+            <!--<label class="control-label">客户经理<sub>*</sub></label>-->
+            <!--<div class="form-control-mock form-text-indent">{{detail.customerManagerName}}</div>-->
+            <!--</div>-->
+            <!--<div class="form-group">-->
+            <!--<label class="control-label">CSM负责人</label>-->
+            <!--<div class="form-control-mock form-text-indent">{{detail.csmManagerName}}</div>-->
+            <!--</div>-->
+            <!--ng-click="!status && addEmployee( 'csmManager')"-->
+        </div>
+    </fieldset>
+</div>

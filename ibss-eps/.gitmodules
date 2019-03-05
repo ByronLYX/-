@@ -1,0 +1,8 @@
+[submodule "src/common-components"]
+	path = src/common-components
+	url = http://git.firstshare.cn/ibss-fe/ibss-common-components.git
+	branch = master
+[submodule "src/common-frame"]
+	path = src/common-frame
+	url = http://git.firstshare.cn/ibss-fe/ibss-common-frame.git
+	branch = master

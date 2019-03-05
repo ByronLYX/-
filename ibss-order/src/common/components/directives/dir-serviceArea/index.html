@@ -1,0 +1,30 @@
+<div class="dir-serviceArea">
+    <div class="selected-list">
+        <i>代理商地区：</i>
+        <ul>
+            <li ng-click="deleteSel($index)" ng-repeat="item in selected track by $index" class="selected-span {{'selected-' + $index}}">{{item.name}} <span ng-show="item.child.length == 0">(全省、直辖市)</span>
+                <span ng-repeat="ii in item.child track by $index"> - {{ii.name}}</span>
+            </li>
+            <li ng-hide="selected.length > 0" class="selected-span selected-none">尚未选择服务地区..</li>
+        </ul>
+        <div class="selected-btn">
+            <button class="btn btn-danger" ng-click="closeSelectPane()">关闭</button>
+            <button class="btn btn-primary" ng-click="submitSelected()">确认</button>
+        </div>
+    </div>
+    <div class="selected-query">
+        <div class="selected-query-input form-inline">
+            <label>模糊查询：</label>
+            <input class="form-control" type="text" maxlength="20" ng-change="searchQueryResult()" ng-model="searchKey" ng-model-options="{debounce:400,updateOn: 'keyup'}" ng-click="searchForDrag()" autofocus="true">
+        </div>
+        <div class="selected-query-result" ng-class="{'query':searchKey}">
+            <span class="first-lv" ng-repeat="item in queryResult" ng-click="selectedItem(item)" ng-class="{'query':item.query,'cur':item.cur}">{{item.name}}</span>
+            <i ng-show="!queryResult">没有子级地区可供选择...</i>
+            <div class="children-area" ng-show="showChildrenPlane">
+                <!--<i class="glyphicon glyphicon-remove" ng-click="closeChildrenPlane()"></i>-->
+                <i class="glyphicon glyphicon-ok" ng-click="okChildrenPlane()"></i>
+                <span class="second-lv" ng-repeat="i in secondResult" ng-click="selectedSecond(i)" ng-class="{'query':i.query,'cur':i.cur}"> {{i.name}}</span>
+            </div>
+        </div>
+    </div>
+</div>

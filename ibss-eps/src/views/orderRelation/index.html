@@ -1,0 +1,210 @@
+<div class="page-content relation-page">
+    <!-- <div class="tabbable">
+        <ul class="nav nav-tabs">
+            <li ng-class="{active:1==tabStatus}">
+                <a href="javascript:;" ng-click="tabClick(1)">续费状态表</a>
+            </li>
+            <li ng-class="{active:2==tabStatus}">
+                <a href="javascript:;" ng-click="tabClick(2)">续费关系表</a>
+            </li>
+        </ul>
+    </div> -->
+    <div>
+        <div class="form-group form-inline">
+            <label class="control-label">账号类型</label>
+            <select class="form-control" ng-model="queryState.accountType">
+                <option value="">全部</option>
+                <option value="1">协同账号</option>
+                <option value="2">CRM账号</option>
+            </select>
+        </div>
+        <div class="form-group form-inline">
+            <label class="control-label">账号开始时间</label>
+            <div class="form-control-double">
+                <div common-datepicker ng-model="queryState.startTimeBegin"></div>
+            </div>
+            <i class="input-split-line"></i>
+            <div class="form-control-double">
+                <div common-datepicker ng-model="queryState.startTimeEnd"></div>
+            </div>
+        </div>
+        <div class="form-group form-inline">
+            <label class="control-label">账号结束时间</label>
+            <div class="form-control-double">
+                <div common-datepicker ng-model="queryState.endTimeBegin"></div>
+            </div>
+            <i class="input-split-line"></i>
+            <div class="form-control-double">
+                <div common-datepicker ng-model="queryState.endTimeEnd"></div>
+            </div>
+        </div>
+        <div class="form-group form-inline">
+            <label class="control-label">续费状态</label>
+            <select class="form-control" ng-model="queryState.renewType">
+                <option value="">全部</option>
+                <option value="1">未续费</option>
+                <option value="2">已续费</option>
+                <option value="3">不续费</option>
+            </select>
+        </div>
+        <div class="form-group form-inline">
+            <label class="control-label">提单时间</label>
+            <div class="form-control-double">
+                <div common-datepicker ng-model="queryState.createTimeBegin"></div>
+            </div>
+            <i class="input-split-line"></i>
+            <div class="form-control-double">
+                <div common-datepicker ng-model="queryState.createTimeEnd"></div>
+            </div>
+        </div>
+        <div class="form-group form-inline">
+            <label class="control-label">订单编号</label>
+            <input type="text" class="form-control" ng-model="queryState.orderId">
+        </div>
+        <div class="form-group form-inline">
+            <label class="control-label">公司/代理商</label>
+            <input type="text" class="form-control" readonly ng-model="queryState.companyStr" ng-click="assignHandel(4, 2)">
+        </div>
+        <div class="form-group form-inline">
+            <label class="control-label">是否有客户经理</label>
+            <select class="form-control" ng-model="queryState.hasManager">
+                <option value="">请选择</option>
+                <option value="0">无</option>
+                <option value="1">有</option>
+            </select>
+        </div>
+        <div class="form-group form-inline">
+            <label class="control-label">客户经理</label>
+            <input type="text" class="form-control" readonly ng-model="queryState.managerStr" ng-click="assignHandel(3, 1)">
+        </div>
+        <div class="form-group form-inline">
+            <label class="control-label">CSM所在部门</label>
+            <input type="text" class="form-control" readonly ng-model="queryState.csmDepStr" ng-click="assignHandel(2, 2)">
+        </div>
+        <div class="form-group form-inline">
+            <label class="control-label">是否有CSM负责人</label>
+            <select class="form-control" ng-model="queryState.hasCsm">
+                <option value="">请选择</option>
+                <option value="0">无</option>
+                <option value="1">有</option>
+            </select>
+        </div>
+        <div class="form-group form-inline">
+            <label class="control-label">CSM负责人</label>
+            <input type="text" class="form-control" readonly ng-model="queryState.csmPersonStr" ng-click="assignHandel(1, 1)">
+        </div>
+        <div class="form-group form-inline">
+            <label class="control-label">企业名称</label>
+            <input type="text" class="form-control" ng-model="queryState.enterpriseName">
+        </div>
+        <div class="form-group form-inline">
+            <label class="control-label">企业账号</label>
+            <input type="text" class="form-control" ng-model="queryState.enterpriseAccount">
+        </div>
+        <div class="form-group form-inline">
+            <label class="control-label">企业活跃天数</label>
+            <!-- <select class="form-control" ng-model="queryState.activeMonth">
+                <option ng-repeat="m in month" value={{m}}>{{m}}月</option>
+            </select> -->
+            <div class="form-control-double">
+                <div common-datepicker ng-model="queryState.activeMonth" date-options="dateOptions" attr-options="attrOptions"></div>
+            </div>
+            <div class="form-control-double">
+                <input type="number" class="form-control" ng-model="queryState.activeDaysMin" ng-change="activeDaysHandel('min')">
+            </div>
+            <i class="input-split-line"></i>
+            <div class="form-control-double">
+                <input type="number" class="form-control" ng-model="queryState.activeDaysMax" ng-change="activeDaysHandel('max')">
+            </div>
+        </div>
+        <div class="form-group form-inline">
+            <button type="button" class="btn btn-primary" ng-click="query()">查询</button>
+            <button type="button" class="btn btn-default" ng-click="reset()">重置</button>
+        </div>
+        <div class="table-wrap">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>企业名称</th>
+                    <th>企业账号</th>
+                    <th>活跃天数</th>
+                    <th>订单编号</th>
+                    <th>订单类型</th>
+                    <th>合同金额</th>
+                    <th>提单日期</th>
+                    <th>客户经理</th>
+                    <th>CSM负责人</th>
+                    <th>账号类型</th>
+                    <th>账号数量</th>
+                    <th>CRM总量</th>
+                    <th>账号开始时间</th>
+                    <th>账号结束时间</th>
+                    <th>续费状态</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="item in stateList">
+                    <td>{{item.en}}</td>
+                    <td><a href="javascript:;" ng-click="companyInfo(item)">{{item.ea}}</a></td>
+                    <td>{{item.activeDays || '-'}}</td>
+                    <td>{{item.orderId}}</td>
+                    <td>
+                        <span ng-if="item.orderType==0">标准订单</span>
+                        <span ng-if="item.orderType==1">版本升级</span>
+                        <span ng-if="item.orderType==2">账号升级</span>
+                    </td>
+                    <td>{{item.amount}}</td>
+                    <td>{{item.createTime | date:"yyyy/MM/dd"}}</td>
+                    <td>
+                        <div ng-if="!item.manager">-</div>
+                        <div ng-if="item.manager">{{item.manager.accountName?item.manager.accountName:'-' }} <br> {{item.manager.departmentName?item.manager.departmentName:'-'}} - {{item.manager.companyName?item.manager.companyName:'-'}}</div>
+                    </td>
+                    <td>
+                        <div ng-if="!item.csm">-</div>
+                        <div ng-if="item.csm">{{item.csm.accountName?item.csm.accountName:'-' }} <br> {{item.csm.departmentName?item.csm.departmentName:'-'}} - {{item.csm.companyName?item.csm.companyName:'-'}}</div>
+                    </td>
+                    <td>
+                        <span ng-if="item.accountType==1">协同账号</span>
+                        <span ng-if="item.accountType==2">CRM账号</span>
+                    </td>
+                    <td>{{item.count}}</td>
+                    <td>{{item.crmTotalCapacity}}</td>
+                    <td>{{item.startTime | date:"yyyy/MM/dd"}}</td>
+                    <td>{{item.endTime | date:"yyyy/MM/dd"}}</td>
+                    <td>
+                        <span ng-if="item.renewType==1">未续费</span>
+                        <span ng-if="item.renewType==2">已续费</span>
+                        <span ng-if="item.renewType==3">不续费</span>
+                    </td>
+                    <td>
+                        <a href="javascript:;" ng-click="editOrderRelation(1, item)">编辑续费单</a>
+                        <a href="javascript:;" ng-click="editOrderRelation(2, item)">编辑续费源</a>
+                        <a href="javascript:;" ng-click="notRenew(item)">不续费(无续费单)</a>
+                    </td>
+                </tr>
+                <tr ng-show="stateList.length<=0">
+                    <td colspan="16" ng-show="loading">加载中...</td>
+                    <td colspan="16" ng-hide="loading">没有查到任何数据!</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="pagination-wrap" ng-show="paginationData.totals">
+            <div class="pagination-total">共 {{paginationData.totals}} 条</div>
+            <ul uib-pagination items-per-page="paginationData.itemsPerPage" total-items="paginationData.totals"
+                ng-model="paginationData.currentPage" max-size="paginationData.maxSize" ng-change="query()"
+                boundary-links="true" class="pagination-sm" first-text="首页"
+                previous-text="上一页" next-text="下一页" last-text="尾页" force-ellipses="true">
+            </ul>
+            <div class="pagination-num">
+                <select class="paging" ng-model="paging" ng-change="changePageNum()">
+                    <option value="20">20</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                </select>
+                <span>行每页</span>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,13 @@
+/dist
+/build
+node_modules
+common-frame
+common-components
+/src/menus.js
+/src/common/index.js
+.idea
+*.iml
+workspace.xml
+
+npm-debug.log*
+.vscode

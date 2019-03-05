@@ -1,0 +1,14 @@
+<div class="dir-showMore" ng-click="showMore()" ng-class="{'nothing':!code}">
+    <div ng-if="code">
+        <span class="showMore-title">{{locationProv}} <i class="glyphicon glyphicon-map-marker"></i></span>
+        <div class="showMore-list" ng-show="showLocaltionList">
+            <ul>
+                <li ng-repeat="(k,v) in regionObj">
+                    <h5 class="h5">{{v.name}}</h5>
+                    <p>【{{v.str.join(' - ')}}】</p>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <span ng-hide="code"> - </span>
+</div>

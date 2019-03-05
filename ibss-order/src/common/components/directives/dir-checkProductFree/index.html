@@ -1,0 +1,105 @@
+<div class="dir-checkProductFree" ng-class="{'lock-status':status}">
+    <fieldset ng-disabled="status">
+        <div class="product-wrap">
+            <div class="product-selects">
+                <span class="select-item" ng-class="{'cur':item.cur}" ng-repeat="item in detail.products | filter:filterProduct" ng-click="chooseProducts(item,$index)">{{item.productParentName}}</span>
+            </div>
+            <hr>
+            <div class="product-content">
+                <div ng-repeat="item in detail.products">
+                    <!--基础A2 -->
+                    <div class="product-item" ng-if="item.cur && item.orderType == 1">
+                        <div class="item-title">
+                            {{item.productParentName}} {{item.isGived ? '- 赠送' : ''}}
+                        </div>
+                        <div class="item-detail">
+                            <div class="item-detail-title">
+                                {{item.productAccountTypeName}}账号
+                                <span>{{item.purchaseTimeLength}}</span>
+                            </div>
+                            <hr>
+                            <div class="form-inline">
+                                <div class="form-group">
+                                    <label class="control-label">用户数<sub>*</sub></label>
+                                    <input type="number" ng-change="getAmount(item)" ng-model-options="{'updateOn':'keyup', debounce: 200}" class="form-control" maxlength="50" ng-model="item.count">
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">开通时间<sub>*</sub></label>
+                                    <div class="form-control-double">
+                                        <div common-datepicker ng-model="item.startTime"></div>
+                                    </div>
+                                    <i class="input-split-line"></i>
+                                    <div class="form-control-double">
+                                        <div common-datepicker ng-model="item.endTime"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item-gived" ng-show="detail.gived.length">
+                            <span ng-repeat="item in detail.gived">赠送【{{item.productParentName}} : {{item.count}}{{item.unit}}】</span>
+                        </div>
+                    </div>
+                    <!--补齐-->
+                </div>
+                <div class="product-item product-add product-aim" ng-repeat="item in detail.aim" ng-if="item.cur">
+                    <div class="item-title">到期时间补齐</div>
+                    <div class="item-detail">
+                        <div class="item-detail-title">
+                            {{item.productAccountTypeName}}<span>{{item.purchaseTimeLength}}</span>
+                        </div>
+                        <div class="form-inline">
+                            <div class="form-group">
+                                <label class="control-label">用户数</label>
+                                <input type="text" ng-disabled="true" class="form-control" maxlength="50" ng-model="item.count">
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">开通时间</label>
+                                <input type="text" ng-disabled="true" class="form-control form-control-double" maxlength="50" ng-model="item.startTimeStr">
+                                <i class="input-split-line"></i>
+                                <input type="text" ng-disabled="true" class="form-control form-control-double" maxlength="50" ng-model="item.endTimeStr">
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div ng-repeat="item in detail.products">
+                    <!--空间-->
+                    <div class="product-item" ng-if="item.cur && item.productParentName == '空间'">
+                        <div class="item-title">空间</div>
+                        <div class="item-detail">
+                            <div class="form-inline">
+                                <div class="form-group">
+                                    <label class="control-label">空间容量（G）<sub>*</sub></label>
+                                    <input type="number" ng-change="getAmount()" ng-model-options="{'updateOn':'keyup', debounce: 200}" class="form-control" maxlength="50" ng-model="item.count">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--培训课时-->
+                    <div class="product-item" ng-if="item.cur && item.productParentName == '培训助手课时'">
+                        <div class="item-title">培训助手课时</div>
+                        <div class="item-detail">
+                            <div class="form-inline">
+                                <div class="form-group">
+                                    <label class="control-label">课时（小时）<sub>*</sub></label>
+                                    <input type="number" class="form-control" maxlength="50" ng-model="item.count">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="form-inline product-contract" role="form">
+            <div class="form-group-line" ng-show="isSpecialApprovalUrl">
+                <label class="control-label">特批链接<sub>*</sub></label>
+                <input type="text" class="form-control" maxlength="50" ng-model="detail.order.specialApprovalUrl">
+            </div>
+            <div class="form-group-line">
+                <label class="control-label vat">备注</label>
+                <textarea ng-model="detail.order.remark" maxlength="500" cols="30" rows="10"></textarea>
+            </div>
+        </div>
+    </fieldset>
+</div>

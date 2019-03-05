@@ -1,0 +1,55 @@
+<div class="dir-checkPerformance" ng-class="{'lock-status':status}">
+    <fieldset ng-disabled="status">
+        <div class="performance-content">
+            <!--基础A2-->
+            <div class="performance-item" ng-repeat="item in detail.products">
+                <div class="item-title">{{item.productParentName}} {{item.typeName}} <span>总金额（元）： {{item.amount}} </span></div>
+                <div class="item-detail">
+                    <div class="performance-item">
+                        <div class="list-title">绩效信息
+                            <button type="button" ng-click="addEmployee(item,1)" class="btn btn-primary">添加</button>
+                        </div>
+                        <ul class="performance-list">
+                            <li ng-repeat="employee in item.commissionDistributions | filter : {type : 1}">
+                                <span class="name">{{employee.accountName}} - {{employee.companyName}} - {{employee.deptName}}</span>
+                                <span>金额（元）<sub>*</sub>:</span>
+                                <input type="number" ng-model="employee.amount" ng-change="countComAmount(item,employee)" ng-model-options="{'updateOn':'keyup', debounce: 100}" maxlength="12">
+                                <a href="javascript:void(0)" ng-click="deleteEmployee(item,employee)">删除</a>
+                            </li>
+                        </ul>
+                        <div class="performance-tip" ng-show="item.tip > 0">
+                            <span>剩余 {{item.tip}} 元绩效金额没有分配</span>
+                        </div>
+                        <div class="list-title">
+                            <div class="radio">
+                                是否双记：
+                                <label class="radio-inline">
+                                <input ng-click="radioStatus(item)" type="radio" name="{{item.$$hashKey}}" value="1" ng-model="item.isDouble"> 否</label>
+                                <label class="radio-inline">
+                                <input ng-click="radioStatus(item)" type="radio" name="{{item.$$hashKey}}" value="2" ng-model="item.isDouble"> 是</label>
+                                <button type="button" ng-click="addEmployee(item,2)" ng-show="item.isDouble == 2" class="btn btn-primary">添加</button>
+                            </div>
+                        </div>
+                        <ul class="performance-list" ng-show="item.isDouble == 2">
+                            <li ng-repeat="employee in item.commissionDistributions | filter : {type : 2}">
+                                <span class="name">{{employee.accountName}} - {{employee.companyName}} - {{employee.deptName}}</span>
+                                <span>金额（元）<sub>*</sub>:</span>
+                                <input type="number" ng-model="employee.amount" ng-change="countComAmount(item,employee)" ng-model-options="{'updateOn':'keyup', debounce: 100}" maxlength="12">
+                                <a href="javascript:void(0)" ng-click="deleteEmployee(item,employee)">删除</a>
+                            </li>
+                        </ul>
+                        <div class="performance-tip" ng-show="item.tipDouble > 0 && item.isDouble == 2">
+                            <span>剩余 {{item.tipDouble}} 元绩效金额没有分配</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-inline">
+                <label class="control-label vat">备注信息</label>
+                <div class="form-control-area">
+                    <textarea ng-model="detail.remark" maxlength="500"></textarea>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+</div>

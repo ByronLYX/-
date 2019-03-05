@@ -1,0 +1,487 @@
+<!--<div><check-company detail="approve.dataCompany" status="flag"></check-company></div>-->
+<!--<div><check-product-free detail="approve.dataProduct" status="flag"></check-product-free></div>-->
+<!--<div><detail-other-free detail="approve.dataOther" status="flag" opinion="boole"></detail-other-free></div>-->
+
+<div ng-cloak>
+    <div class="dir-checkCompany" ng-class="{'lock-status':true}">
+        <fieldset ng-disabled="true">
+            <div class="form-inline" role="form">
+                <div class="form-group">
+                    <label class="control-label">签约企业名称<sub>*</sub></label>
+                    <input type="text" class="form-control" maxlength="50" ng-model="approve.dataCompany.signEaName"
+                           placeholder="合同章名称">
+                </div>
+                <div class="form-group">
+                    <label class="control-label">当前企业名称<sub>*</sub></label>
+                    <input type="text" class="form-control" maxlength="50"
+                           ng-model="approve.dataCompany.enterpriseName">
+                </div>
+                <div class="form-group">
+                    <label class="control-label">服务区域<sub>*</sub></label>
+                    <div localtion ng-model="approve.dataCompany.areaCode" class="form-control-mock"></div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">企业账号<sub>*</sub></label>
+                    <input type="text" required ng-class="{ 'ng-invalid':!approve.dataCompany.checkAccount}"
+                           ng-change="checkAccount()" ng-model-options="{ 'updateOn': 'keyup', debounce: 300}"
+                           placeholder="字母开始，6到20位长度" class="form-control" maxlength="20
+                   " ng-model="approve.dataCompany.enterpriseAccount">
+                </div>
+                <div class="form-group" ng-hide='hideForCompany'>
+                    <label class="control-label">行　　业<sub>*</sub></label>
+                    <div industry ng-model="approve.dataCompany.industry" class="form-control-mock"></div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">使用对象类型<sub>*</sub></label>
+                    <select class="form-control" ng-model="approve.dataCompany.groupType">
+                        <option value="">请选择</option>
+                        <option value="1">销售团队</option>
+                        <option value="2">非销售团队</option>
+                        <option value="3">全公司</option>
+                    </select>
+                </div>
+                <div class="form-group" ng-hide='hideForCompany'>
+                    <label class="control-label">公司规模<sub>*</sub></label>
+                    <select class="form-control" ng-model="approve.dataCompany.companyScale">
+                        <option value="">请选择</option>
+                        <option value="1">未知</option>
+                        <option value="2">1—49人</option>
+                        <option value="3">50—99人</option>
+                        <option value="4">100—499人</option>
+                        <option value="5">500—999人</option>
+                        <option value="6">1000—4999人</option>
+                        <option value="7">5000—9999人</option>
+                        <option value="8">10000人以上</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">销售团队使用<sub>*</sub></label>
+                    <select class="form-control" ng-model="approve.dataCompany.isSaleTeam">
+                        <option value="">请选择</option>
+                        <option value="true">是</option>
+                        <option value="false">否</option>
+                    </select>
+                </div>
+                <div class="form-group" ng-hide='hideForCompany'>
+                    <label class="control-label">销售团队规模<sub>*</sub></label>
+                    <select class="form-control" ng-model="approve.dataCompany.saleTeamScale">
+                        <option value="1" title="未知">未知</option>
+                        <option value="2" title="1-49人">1-49人</option>
+                        <option value="3" title="50-99人">50-99人</option>
+                        <option value="4" title="100-499人">100-499人</option>
+                        <option value="5" title="500-999人">500-999人</option>
+                        <option value="6" title="1000-4999人">1000-4999人</option>
+                        <option value="7" title="5000-9999人">5000-9999人</option>
+                        <option value="8" title="10000人以上">10000人以上</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">是否标杆<sub>*</sub></label>
+                    <select class="form-control" ng-model="approve.dataCompany.isMarking">
+                        <option value="">请选择</option>
+                        <option value="true">是</option>
+                        <option value="false">否</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">是否转介绍<sub>*</sub></label>
+                    <select class="form-control" ng-model="approve.dataCompany.isReferral">
+                        <option value="">请选择</option>
+                        <option value="true">是</option>
+                        <option value="false">否</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">来　　源<sub>*</sub></label>
+                    <select class="form-control" ng-model="approve.dataCompany.source">
+                        <option value="">请选择</option>
+                        <option value="0">未知</option>
+                        <option value="1">自注册</option>
+                        <option value="2">公司资源客户</option>
+                        <option value="3">自开拓</option>
+                        <option value="4">客户转介绍</option>
+                        <option value="5">楼宇客户</option>
+                        <option value="6">市场部</option>
+                        <option value="7">预约上门</option>
+                        <option value="8">线上询价</option>
+                    </select>
+                </div>
+                <div class="form-group-line">
+                    <label class="control-label">企业地址<sub>*</sub></label>
+                    <div class="form-control-double">
+                        <div localtion ng-model="approve.dataCompany.city" class="form-control-mock"></div>
+                    </div>
+                    <i class="input-split-line"></i>
+                    <input type="text" class="form-control" ng-model="approve.dataCompany.address"
+                           placeholder="请填写详细地址">
+                </div>
+                <h4 class="h4">企业负责人</h4>
+                <hr>
+                <div class="form-group">
+                    <label class="control-label">企业负责人姓名<sub>*</sub></label>
+                    <input type="text" class="form-control" maxlength="50"
+                           ng-model="approve.dataCompany.keyContactName">
+                </div>
+                <div class="form-group">
+                    <label class="control-label">企业负责人手机<sub>*</sub></label>
+                    <input type="text" class="form-control" phone ng-model="approve.dataCompany.keyContactPhone">
+                </div>
+                <div class="form-group">
+                    <label class="control-label">企业负责人邮箱<sub>*</sub></label>
+                    <input type="text" class="form-control" maxlength="50" email
+                           ng-model="approve.dataCompany.keyContactEmail">
+                </div>
+                <!--<h4 class="h4">纷享平台管理员</h4>
+                <hr>
+                <div class="form-group">
+                    <label class="control-label">平台管理员姓名<sub>*</sub></label>
+                    <input type="text" class="form-control" maxlength="50" ng-model="approve.dataCompany.managerName">
+                </div>
+                <div class="form-group">
+                    <label class="control-label">平台管理员手机<sub>*</sub></label>
+                    <input type="text" class="form-control" phone ng-model="approve.dataCompany.managerPhone">
+                </div>
+                <div class="form-group">
+                    <label class="control-label">平台管理员邮箱<sub>*</sub></label>
+                    <input type="text" class="form-control" maxlength="50" email ng-model="approve.dataCompany.managerEmail">
+                </div>-->
+            </div>
+        </fieldset>
+    </div>
+
+    <div class="dir-checkProductFree" ng-class="{'lock-status':flag}">
+        <fieldset ng-disabled="flag">
+            <div class="product-wrap">
+                <div class="product-selects">
+                    <span class="select-item" ng-class="{'cur':item.cur}"
+                          ng-repeat="item in approve.dataProduct.products | filter:filterProduct"
+                          ng-click="chooseProducts(item,$index)">{{item.productParentName}}</span>
+                </div>
+                <hr>
+                <div class="product-content">
+                    <div ng-repeat="item in approve.dataProduct.products">
+                        <!--基础A2 -->
+                        <div class="product-item" ng-if="item.cur && item.orderType == 1">
+                            <div class="item-title">
+                                {{item.productParentName}} {{item.isGived ? '- 赠送' : ''}}
+                            </div>
+                            <div class="item-detail">
+                                <div class="item-detail-title">
+                                    {{item.productAccountTypeName}}账号
+                                    <span>{{detail.orderType == 2 ? '试用时长：':'赠送时长：'}}{{item.purchaseTimeLength}}</span>
+                                </div>
+                                <hr>
+                                <div class="form-inline">
+                                    <div class="form-group">
+                                        <label class="control-label">用户数<sub>*</sub></label>
+                                        <input type="number" ng-change="getAmount(item)"
+                                               ng-model-options="{'updateOn':'keyup', debounce: 200}"
+                                               class="form-control" maxlength="50" ng-model="item.count">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label">开通时间<sub>*</sub></label>
+                                        <div class="form-control-double">
+                                            <div common-datepicker ng-model="item.startTime"></div>
+                                        </div>
+                                        <i class="input-split-line"></i>
+                                        <div class="form-control-double">
+                                            <div common-datepicker ng-model="item.endTime"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="item-gived" ng-show="approve.dataProduct.gived.length">
+                                <span ng-repeat="item in approve.dataProduct.gived">赠送【{{item.productParentName}} : {{item.count}}{{item.unit}}】</span>
+                            </div>
+                        </div>
+                        <!--空间-->
+                        <div class="product-item" ng-if="item.cur && item.productParentName == '空间'">
+                            <div class="item-title">空间</div>
+                            <div class="item-detail">
+                                <div class="form-inline">
+                                    <div class="form-group">
+                                        <label class="control-label">空间容量（G）<sub>*</sub></label>
+                                        <input type="number" ng-change="getAmount(item)"
+                                               ng-model-options="{'updateOn':'keyup', debounce: 200}"
+                                               class="form-control" maxlength="50" ng-model="item.count">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--培训课时-->
+                        <div class="product-item" ng-if="item.cur && item.productParentName == '培训助手课时'">
+                            <div class="item-title">培训助手课时</div>
+                            <div class="item-detail">
+                                <div class="form-inline">
+                                    <div class="form-group">
+                                        <label class="control-label">课时（小时）<sub>*</sub></label>
+                                        <input type="number" class="form-control" maxlength="50" ng-model="item.count">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--企业互联-->
+                        <!-- <div class="product-item" ng-if="item.cur && item.productParentName == '企业互联'">
+                            <div class="item-title">企业互联</div>
+                            <div class="item-detail">
+                                <div class="item-detail-title">
+                                    {{item.productAccountTypeName}}<span>{{detail.orderType == 2 ? '试用时长：':'赠送时长：'}}{{item.purchaseTimeLength}}</span>
+                                </div>
+                                <div class="form-inline">
+                                    <div class="form-group">
+                                        <label class="control-label">端口数</label>
+                                        <input type="number" class="form-control" maxlength="50" ng-model="item.count">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label">开通时间<sub>*</sub></label>
+                                        <div class="form-control-double">
+                                            <div common-datepicker ng-model="item.startTime"></div>
+                                        </div>
+                                        <i class="input-split-line"></i>
+                                        <div class="form-control-double">
+                                            <div common-datepicker ng-model="item.endTime"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
+                        <!--企业互联-->
+                        <div class="product-item" ng-if="item.cur && item.productParentName == '企业互联'">
+                            <div class="item-title">企业互联</div>
+                            <div class="item-detail">
+                                <div class="item-detail-title">
+                                    {{item.productAccountTypeName}}<span>{{detail.orderType == 2 ? '试用时长：':'赠送时长：'}}{{item.purchaseTimeLength}}</span>
+                                </div>
+                                <div class="form-inline">
+                                    <div class="form-group">
+                                        <label class="control-label">端口数</label>
+                                        <input type="number" class="form-control" maxlength="50" ng-model="item.count">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label">开通时间<sub>*</sub></label>
+                                        <div class="form-control-double">
+                                            <div common-datepicker ng-model="item.startTime"></div>
+                                        </div>
+                                        <i class="input-split-line"></i>
+                                        <div class="form-control-double">
+                                            <div common-datepicker ng-model="item.endTime"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--客户互联-->
+                        <div class="product-item" ng-if="item.cur && item.productParentName == '客户互联'">
+                            <div class="item-title">客户互联</div>
+                            <div class="item-detail">
+                                <div class="item-detail-title">
+                                    {{item.productAccountTypeName}}<span>{{detail.orderType == 2 ? '试用时长：':'赠送时长：'}}{{item.purchaseTimeLength}}</span>
+                                </div>
+                                <div class="form-inline">
+                                    <div class="form-group">
+                                        <label class="control-label">端口数</label>
+                                        <input type="number" class="form-control" maxlength="50" ng-model="item.count">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label">开通时间<sub>*</sub></label>
+                                        <div class="form-control-double">
+                                            <div common-datepicker ng-model="item.startTime"></div>
+                                        </div>
+                                        <i class="input-split-line"></i>
+                                        <div class="form-control-double">
+                                            <div common-datepicker ng-model="item.endTime"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--开通CRM接口费-->
+                        <div class="product-item" ng-if="item.cur && item.productParentName == '开通CRM接口费'">
+                            <div class="item-title">开通CRM接口费</div>
+                            <div class="item-detail">
+                                <div class="item-detail-title">
+                                    <span>{{detail.orderType == 2 ? '试用时长：':'赠送时长：'}}{{item.purchaseTimeLength}}</span>
+                                </div>
+                                <div class="form-inline">
+                                    <div class="form-group">
+                                        <label class="control-label">频次包<sub>*</sub></label>
+                                        <select class="form-control form-service" ng-model="item.productId" ng-disabled="true">
+                                            <option value="">请选择</option>
+                                            <option value="151">低频包</option>
+                                            <option value="152">中频包</option>
+                                            <option value="153">高频包</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label">频次包数量<sub>*</sub></label>
+                                        <input type="number" ng-change="getAmount(item)"
+                                               ng-model-options="{'updateOn':'keyup', debounce: 200}"
+                                               class="form-control form-service" maxlength="50" ng-model="item.count">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label">开通时间<sub>*</sub></label>
+                                        <div class="form-control-double">
+                                            <div common-datepicker ng-model="item.startTime"></div>
+                                        </div>
+                                        <i class="input-split-line"></i>
+                                        <div class="form-control-double">
+                                            <div common-datepicker ng-model="item.endTime"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--资源扩展包-->
+                        <div class="product-item" ng-if="item.cur && item.productParentName == '资源扩展包'">
+                           
+                            <div class="item-title">资源扩展包
+                            </div>
+                            <div class="item-detail">
+                                <div class="form-inline">
+                                    <div class="form-group" ng-repeat='sItem in item.sourceArr'>
+                                        <label class="control-label">{{sItem.productId | sourceType}}</label>
+                                        <input type="number" ng-change="getDayCounts()"  class="form-control"  maxlength="50" ng-model="sItem.count">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label">开通时间<sub>*</sub></label>
+                                        <div class="form-control-double">
+                                            <div common-datepicker required ng-model="item.startTime"></div>
+                                        </div>
+                                        <i class="input-split-line"></i>
+                                        <div class="form-control-double">
+                                            <div common-datepicker required ng-model="item.endTime"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                           
+                        </div>
+                        <!--资源扩展包 END-->
+                        <div class="product-item" ng-if="item.cur && item.productParentName == '金蝶 K3Cloud插件'">
+                            <div class="item-title">
+                                {{item.productParentName}} {{item.isGived ? '- 赠送' : ''}}
+                            </div>
+                            <div class="item-detail">
+                                <div class="item-detail-title">
+                                    {{item.productAccountTypeName}}账号
+                                    <span>{{detail.orderType == 2 ? '试用时长：':'赠送时长：'}}{{item.purchaseTimeLength}}</span>
+                                </div>
+                                <hr>
+                                <div class="form-inline">
+                                    <div class="form-group">
+                                        <label class="control-label">开通时间<sub>*</sub></label>
+                                        <div class="form-control-double">
+                                            <div common-datepicker ng-model="item.startTime"></div>
+                                        </div>
+                                        <i class="input-split-line"></i>
+                                        <div class="form-control-double">
+                                            <div common-datepicker ng-model="item.endTime"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="item-gived" ng-show="approve.dataProduct.gived.length">
+                                <span ng-repeat="item in approve.dataProduct.gived">赠送【{{item.productParentName}} : {{item.count}}{{item.unit}}】</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="form-inline product-contract" role="form">
+                <div class="form-group-line" ng-if="approve.dataProduct.order.specialApprovalUrl">
+                    <label class="control-label">特批链接<sub>*</sub></label>
+                    <!--<input type="text" class="form-control" maxlength="50" ng-model="approve.dataProduct.order.specialApprovalUrl">-->
+                    <span class="special-link" >
+                        <a href="{{approve.dataProduct.order.specialApprovalUrl}}" ng-model="approve.dataProduct.order.specialApprovalUrl" target="_blank">{{approve.dataProduct.order.specialApprovalUrl}}</a>
+                    </span>
+                </div>
+                <div class="form-group" ng-show="detail.orderType==3">
+                    <label class="control-label vat">
+                        合同照片<sub>*</sub>
+                        <div>（清晰拍照，正向上传）</div>
+                    </label>
+                    <div class="form-control-area">
+                        <upload file="approve.dataProduct.contract.pics" readonly="readonly"></upload>
+                    </div>
+                </div>
+                <div class="form-group" ng-show="detail.orderType==3">
+                    <label class="control-label">合同章名称<sub>*</sub></label>
+                    <input type="text" class="form-control" maxlength="50"
+                           ng-model="approve.dataProduct.contract.sealName">
+                </div>
+                <div class="form-group-line">
+                    <label class="control-label vat">备注</label>
+                    <textarea ng-model="approve.dataProduct.order.remark" maxlength="500" cols="30"
+                              rows="10"></textarea>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+
+    <div class="other">
+        <div ng-if="!boole">
+            <h4>审批意见</h4>
+            <hr>
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>操作人</th>
+                    <th>审批时间</th>
+                    <th>审批意见</th>
+                </tr>
+                <tr ng-show="approve.dataOther.approvalList.length<=0">
+                    <td colspan="3">没有查到任何数据!</td>
+                </tr>
+                </thead>
+                <tbody ng-show="approve.dataOther.approvalList.length>0">
+                <tr ng-repeat="item in approve.dataOther.approvalList">
+                    <td>{{item.approverName}}</td>
+                    <td>{{item.approvalTime | date:"yyyy/MM/dd HH:mm:ss"}}</td>
+                    <td>{{item.approvalOpinion ? item.approvalOpinion : '-'}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div ng-if="boole">
+            <h4>审批意见</h4>
+            <hr>
+            <div ng-hide="approve.dataOther.approvalList.length<=0">
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th>操作人</th>
+                        <th>审批时间</th>
+                        <th>审批意见</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="item in approve.dataOther.approvalList">
+                        <td>{{item.approverName}}</td>
+                        <td>{{item.approvalTime | date:"yyyy/MM/dd HH:mm:ss"}}</td>
+                        <td>{{item.approvalOpinion ? item.approvalOpinion : '-'}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="form-group form-inline" ng-if="detail.orderType==3">
+                <label class="control-label">合同审核</label>
+                <select class="form-control" ng-model="approve.dataOther.contractQualified">
+                    <option value="">请选择</option>
+                    <option value="true">合格</option>
+                    <option value="false">不合格</option>
+                </select>
+                <select class="form-control" ng-model="approve.dataOther.cause" ng-change="getCause(approve.dataOther.cause)" ng-hide="approve.dataOther.contractQualified=='' || approve.dataOther.contractQualified=='true'">
+                    <option value="">请选择不合格原因</option>
+                    <option value="无合同章">无合同章</option>
+                    <option value="所盖章非公章或合同章">所盖章非公章或合同章</option>
+                    <option value="合同章和实际开通客户名称不一致">合同章和实际开通客户名称不一致</option>
+                    <option value="实际合同章与签约公司名称不一致">实际合同章与签约公司名称不一致</option>
+                </select>
+            </div>
+            <textarea ng-model="approve.dataOther.approvalOpinion" maxlength="500"></textarea>
+        </div>
+    </div>
+
+</div>

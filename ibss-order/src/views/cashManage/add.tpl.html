@@ -1,0 +1,36 @@
+<div class="add-cash">
+    <div class="form-group form-inline">
+        <label class="control-label">到款编号:<sub>*</sub></label>
+        <input type="text" class="form-control" ng-model="add.receivedPayNo">
+    </div>
+    <div class="form-group form-inline">
+        <label class="control-label">到款日期:<sub>*</sub></label>
+        <span common-datepicker ng-model="add.receivedPayTime"></span>
+    </div>
+    <div class="form-group form-inline">
+        <label class="control-label">打款名称(单位/个人):<sub>*</sub></label>
+        <input type="text" class="form-control" ng-model="add.payerName">
+    </div>
+    <div class="form-group form-inline">
+        <label class="control-label">金额(元):<sub>*</sub></label>
+        <input type="number" class="form-control" ng-model="add.receivedPayAmount">
+    </div>
+    <div class="form-group form-inline">
+        <label class="control-label">手续费(元):<sub>*</sub></label>
+        <input type="number" class="form-control" ng-model="add.handlingCharge">
+    </div>
+    <div class="form-group form-inline">
+        <label class="control-label">性质:<sub>*</sub></label>
+        到款
+    </div>
+    <div class="form-group form-inline">
+        <label class="control-label">收款银行名称:<sub>*</sub></label>
+        <input type="text" class="form-control" ng-model="add.bankName">
+    </div>
+    <div class="form-group form-inline">
+        <label class="control-label">所属公司/代理商:</label>
+        <input type="text" class="form-control" ng-model="add.deptCompanyName" disabled>
+        <button class="btn btn-primary" ng-click="select()">选择</button>
+    </div>
+
+</div>

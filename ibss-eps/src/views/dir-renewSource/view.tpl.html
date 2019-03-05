@@ -1,0 +1,102 @@
+<div class="relation-page">
+    <div class="form-group form-inline">
+        <label class="control-label">账号类型</label>
+        <select class="form-control" ng-model="queryData.accountType" ng-disabled="true">
+            <option value="">全部</option>
+            <option value="1">协同账号</option>
+            <option value="2">CRM账号</option>
+        </select>
+    </div>
+    <div class="form-group form-inline">
+        <label class="control-label">账号开始时间</label>
+        <div class="form-control-double">
+            <div common-datepicker ng-model="queryData.startTimeBegin"></div>
+        </div>
+        <i class="input-split-line"></i>
+        <div class="form-control-double">
+            <div common-datepicker ng-model="queryData.startTimeEnd"></div>
+        </div>
+    </div>
+    <div class="form-group form-inline">
+        <label class="control-label">账号结束时间</label>
+        <div class="form-control-double">
+            <div common-datepicker ng-model="queryData.endTimeBegin"></div>
+        </div>
+        <i class="input-split-line"></i>
+        <div class="form-control-double">
+            <div common-datepicker ng-model="queryData.endTimeEnd"></div>
+        </div>
+    </div>
+    <div class="form-group form-inline">
+        <button type="button" class="btn btn-primary" ng-click="query()">查询</button>
+        <button type="button" class="btn btn-default" ng-click="reset()">重置</button>
+    </div>
+    <div class="table-wrap">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>企业名称</th>
+                <th>企业账号</th>
+                <th>活跃天数</th>
+                <th>订单编号</th>
+                <th>订单类型</th>
+                <th>合同金额</th>
+                <th>提单日期</th>
+                <th>客户经理</th>
+                <th>CSM负责人</th>
+                <th>账号类型</th>
+                <th>账号数量</th>
+                <th>CRM总量</th>
+                <th>账号开始时间</th>
+                <th>账号结束时间</th>
+                <th>续费状态</th>
+                <th ng-if="type==1">确认续费单</th>
+                <th ng-if="type==2">确认续费源</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="item in orderList">
+                <td>{{item.en}}</td>
+                <td><a href="javascript:;" ng-click="companyInfo(item)">{{item.ea}}</a></td>
+                <td>{{item.activeDays || '-'}}</td>
+                <td>{{item.orderId}}</td>
+                <td>
+                    <span ng-if="item.orderType==0">标准订单</span>
+                    <span ng-if="item.orderType==1">版本升级</span>
+                    <span ng-if="item.orderType==2">账号升级</span>
+                </td>
+                <td>{{item.amount}}</td>
+                <td>{{item.createTime | date:"yyyy/MM/dd"}}</td>
+                <td>
+                    <div ng-if="!item.manager">-</div>
+                    <div ng-if="item.manager">{{item.manager.accountName?item.manager.accountName:'-' }} <br> {{item.manager.departmentName?item.manager.departmentName:'-'}} - {{item.manager.companyName?item.manager.companyName:'-'}}</div>
+                </td>
+                <td>
+                    <div ng-if="!item.csm">-</div>
+                    <div ng-if="item.csm">{{item.csm.accountName?item.csm.accountName:'-' }} <br> {{item.csm.departmentName?item.csm.departmentName:'-'}} - {{item.csm.companyName?item.csm.companyName:'-'}}</div>
+                </td>
+                <td>
+                    <span ng-if="item.accountType==1">协同账号</span>
+                    <span ng-if="item.accountType==2">CRM账号</span>
+                </td>
+                <td>{{item.count}}</td>
+                <td>{{item.crmTotalCapacity}}</td>
+                <td>{{item.startTime | date:"yyyy/MM/dd"}}</td>
+                <td>{{item.endTime | date:"yyyy/MM/dd"}}</td>
+                <td>
+                    <span ng-if="item.renewType==1">未续费</span>
+                    <span ng-if="item.renewType==2">已续费</span>
+                    <span ng-if="item.renewType==3">不续费</span>
+                </td>
+                <td>
+                    <label><input type="checkbox" ng-checked="item.selected" ng-click="selectItem(item)"> 请选择</label>
+                </td>
+            </tr>
+            <tr ng-show="orderList.length<=0">
+                <td colspan="16" ng-show="loading">加载中...</td>
+                <td colspan="16" ng-hide="loading">没有查到任何数据</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

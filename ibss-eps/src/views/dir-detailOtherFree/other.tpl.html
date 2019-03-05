@@ -1,0 +1,165 @@
+<div class="other">
+    <div>
+        <h4>联合跟进人</h4>
+        <hr>
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>跟进人</th>
+                <th>公司/代理商</th>
+                <th>操作日期</th>
+            </tr>
+            <tr ng-show="detail.followList.length<=0">
+                <td colspan="3">没有查到任何数据!</td>
+            </tr>
+            </thead>
+            <tbody ng-show="detail.followList.length>0">
+            <tr ng-repeat="item in detail.followList">
+                <td>
+                    员工: {{item.accountName}}
+                    部门: {{item.accountDeptName}}
+                </td>
+                <td>{{item.accountCompanyName}}</td>
+                <td>{{item.createTime | date:"yyyy/MM/dd HH:mm:ss"}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div>
+        <h4>客户负责人</h4>
+        <hr>
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>客户经理</th>
+                <th>公司/代理商</th>
+                <th>操作日期</th>
+            </tr>
+            <tr ng-show="detail.customerList.length<=0">
+                <td colspan="3">没有查到任何数据!</td>
+            </tr>
+            </thead>
+            <tbody ng-show="detail.customerList.length>0">
+            <tr ng-repeat="item in detail.customerList">
+                <td>
+                    员工: {{item.accountName}}
+                    部门: {{item.accountDeptName}}
+                </td>
+                <td>{{item.accountCompanyName}}</td>
+                <td>{{item.createTime | date:"yyyy/MM/dd HH:mm:ss"}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div>
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>CSM负责人</th>
+                <th>公司/代理商</th>
+                <th>操作日期</th>
+            </tr>
+            <tr ng-show="detail.csmList.length<=0">
+                <td colspan="3">没有查到任何数据!</td>
+            </tr>
+            </thead>
+            <tbody ng-show="detail.csmList.length>0">
+            <tr ng-repeat="item in detail.csmList">
+                <td>
+                    员工: {{item.accountName}}
+                    部门: {{item.accountDeptName}}
+                </td>
+                <td>{{item.accountCompanyName}}</td>
+                <td>{{item.createTime | date:"yyyy/MM/dd HH:mm:ss"}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div ng-if="!opinion">
+        <h4>审批意见</h4>
+        <hr>
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>操作人</th>
+                <th>审批时间</th>
+                <!--<th>审批结果</th>-->
+                <th>审批意见</th>
+                <th>附件</th>
+            </tr>
+            <tr ng-show="detail.approvalList.length<=0">
+                <td colspan="5">没有查到任何数据!</td>
+            </tr>
+            </thead>
+            <tbody ng-show="detail.approvalList.length>0">
+            <tr ng-repeat="item in detail.approvalList">
+                <td>{{item.approverName}}</td>
+                <td>{{item.approvalTime | date:"yyyy/MM/dd HH:mm:ss"}}</td>
+                <!--<td>{{item.contractQualified ? '合同合格' : '合同不合格'}}</td>-->
+                <td>{{item.approvalOpinion}}</td>
+                <td>
+                    <span ng-repeat="img in item.approvalPics" ng-if="item.approvalPics">
+                        <img ng-src="{{img}}" ng-click="showPreview(img,1)" width="50" height="50">
+                    </span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <preview-order preview="preview"></preview-order>
+    </div>
+
+    <div ng-if="opinion">
+        <h4>审批意见</h4>
+        <hr>
+        <div ng-hide="detail.approvalList.length<=0">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>操作人</th>
+                    <th>审批时间</th>
+                    <!--<th>审批结果</th>-->
+                    <th>审批意见</th>
+                    <th>附件</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="item in detail.approvalList">
+                    <td>{{item.approverName}}</td>
+                    <td>{{item.approvalTime | date:"yyyy/MM/dd HH:mm:ss"}}</td>
+                    <!--<td>{{item.contractQualified ? '合同合格' : '合同不合格'}}</td>-->
+                    <td>{{item.approvalOpinion}}</td>
+                    <td>
+                    <span ng-repeat="img in item.approvalPics" ng-if="item.approvalPics">
+                        <img ng-src="{{img}}" ng-click="showPreview(img,1)" width="50" height="50">
+                    </span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <preview-order preview="preview"></preview-order>
+        </div>
+
+        <!--<div class="form-group form-inline">-->
+            <!--<label class="control-label">合同审核</label>-->
+            <!--<select class="form-control" ng-model="detail.contractQualified">-->
+                <!--<option value="">请选择</option>-->
+                <!--<option value="true">合格</option>-->
+                <!--<option value="false">不合格</option>-->
+            <!--</select>-->
+            <!--<select class="form-control" ng-model="detail.cause" ng-change="getCause(detail.cause)"-->
+                    <!--ng-hide="detail.contractQualified=='' || detail.contractQualified=='true'">-->
+                <!--<option value="">请选择不合格原因</option>-->
+                <!--<option value="无合同章">无合同章</option>-->
+                <!--<option value="所盖章非公章或合同章">所盖章非公章或合同章</option>-->
+                <!--<option value="合同章和实际开通客户名称不一致">合同章和实际开通客户名称不一致</option>-->
+                <!--<option value="实际合同章与签约公司名称不一致">实际合同章与签约公司名称不一致</option>-->
+            <!--</select>-->
+        <!--</div>-->
+        <textarea ng-model="detail.approvalOpinion" maxlength="500"></textarea>
+        <upload file="detail.approvalPics"></upload>
+    </div>
+
+</div>
